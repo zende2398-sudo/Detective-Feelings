@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Feelings Analyzer</title>
+	<style>
+	body { font-family: Arial; background: #f0f8ff; text-align: center; padding: 50px; }
+    textarea { border-radius: 10px; padding: 10px; width: 300px; height: 80px; }
+    button { margin-top: 10px; padding: 10px; border-radius: 8px; background: #3498db; color: white; }
+    #result { font-size: 24px; margin-top: 20px; }
+	</style>
+</head>
+<body>
+  <h1>🧐 Detective Feelings 🧐</h1>
+    <p>HELLO! Junior👦 I am Detective Feelings.</p>
+     <p>I am here to solve a case to test your Positivty.🤩</p>
+  <p>Be True to me and write down your Feelings here and help me Solve this CASE!</p>
+
+  <textarea id="input"></textarea><br>
+  <button onclick="analyze()">Analyze</button>
+
+  <h2>Result:</h2>
+  <p id="result">No input yet.</p>
+ <script>
+    async function analyze() {
+      const text = document.getElementById("input").value;
+      const res = await fetch("/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+      const data = await res.json();
+      document.getElementById("result").innerText = data.sentiment;
+    }
+  </script>
+</body>
+</html>
